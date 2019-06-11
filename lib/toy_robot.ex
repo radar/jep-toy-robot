@@ -8,13 +8,13 @@ defmodule ToyRobot do
 
   ## Examples
 
-      iex> ToyRobot.move(%{position: 0})
-      %{position: 1}
+      iex> ToyRobot.move(%{north: 0, east: 0, dir: "NORTH"})
+      %{north: 1, east: 0, dir: "NORTH"}
 
-      iex> %{position: 0} |> ToyRobot.move |> ToyRobot.move
-      %{position: 2}
+      iex> %{north: 0, east: 0, dir: "NORTH"} |> ToyRobot.move |> ToyRobot.move
+      %{north: 2, east: 0, dir: "NORTH"}
   """
-  def move(%{position: position}) do
-    %{position: position + 1}
+  def move(%{north: north, east: east, dir: "NORTH"}) do
+    %{north: north + 1, east: east, dir: "NORTH"}
   end
 end

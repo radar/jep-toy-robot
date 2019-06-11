@@ -17,14 +17,16 @@ defmodule ToyRobot.CLI do
 
   # run_commands/1
   defp run_commands(commands) do
-    run_commands(commands, %{position: 0}) # run_commands/2
+    run_commands(commands, %{north: 0, east: 0, dir: "NORTH"})
   end
 
+  # run_commands/2
   def run_commands(["MOVE" | commands], robot) do
-    run_commands(commands, robot |> ToyRobot.move)
+    run_commands(commands, robot 
+    |> ToyRobot.move)
   end
 
-  def run_commands([], %{position: position}) do
-    IO.puts "Robot is at position #{position}"
+  def run_commands([], %{north: north, east: east, dir: dir}) do
+    IO.puts "Robot is at position #{north}, #{east}, facing: #{dir}"
   end
 end
