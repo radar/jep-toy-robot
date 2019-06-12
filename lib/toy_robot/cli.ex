@@ -17,7 +17,7 @@ defmodule ToyRobot.CLI do
 
   # run_commands/1
   defp run_commands(commands) do
-    run_commands(commands, %{north: 0, east: 3, dir: "EAST"})
+    run_commands(commands, %ToyRobot{north: 0, east: 3, dir: "EAST"})
   end
 
   # run_commands/2
@@ -26,7 +26,17 @@ defmodule ToyRobot.CLI do
     |> ToyRobot.move)
   end
 
+  def run_commands(["LEFT" | commands], position) do
+    run_commands(commands, position
+    |> ToyRobot.rotate("LEFT"))
+  end
+
+  def run_commands(["RIGHT" | commands], position) do
+    run_commands(commands, position
+    |> ToyRobot.rotate("RIGHT"))
+  end
+
   def run_commands([], %{north: north, east: east, dir: dir }) do
-    IO.puts "Robot is at position #{north}, #{east}, facing: #{dir}"
+    IO.puts "Robot is at position #{east}, #{north}, facing: #{dir}"
   end
 end
