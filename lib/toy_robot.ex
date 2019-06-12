@@ -7,15 +7,27 @@ defmodule ToyRobot do
   Documentation for ToyRobot.
   """
 
-  def check_boundary(%{north: 4, east: _east, dir: "NORTH"} = position) do
+  def check_boundary(%{north: 4, east: _, dir: "NORTH"} = position) do
     {:error, "Facing boundary, cannot move", position}
   end
 
-  def check_boundary(%{north: north, east: east, dir: dir}) do
-    {:ok, %{north: north, east: east, dir: dir}}
+  def check_boundary(%{north: 0, east: _, dir: "SOUTH"} = position) do
+    {:error, "Facing boundary, cannot move", position}
   end
 
-  def move(%{north: _north, east: _east, dir: _dir} = position) do
+  def check_boundary(%{north: _, east: 4, dir: "EAST"} = position) do
+    {:error, "Facing boundary, cannot move", position}
+  end
+
+  def check_boundary(%{north: _, east: 0, dir: "WEST"} = position) do
+    {:error, "Facing boundary, cannot move", position}
+  end
+
+  def check_boundary(%{north: _, east: _, dir: _} = position) do
+    {:ok, position}
+  end
+  
+  def move(%{north: _, east: _, dir: _} = position) do
     check_boundary(position)
     |> move()
   end
