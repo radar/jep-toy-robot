@@ -3,6 +3,10 @@ require IEx
 
 defmodule ToyRobot do
 
+  @boundary_range 0..4
+  @lower_boundary Enum.to_list(@boundary_range) |> Enum.at(0)
+  @upper_boundary Enum.to_list(@boundary_range) |> Enum.at(-1)
+
   defstruct [:north, :east, :dir]
 
   @moduledoc """
@@ -18,19 +22,19 @@ defmodule ToyRobot do
       iex> ToyRobot.check_boundary(%ToyRobot{north: 0, east: 0, dir: "WEST"})
       {:error, "Facing boundary, cannot move", %ToyRobot{north: 0, east: 0, dir: "WEST"}}
   """
-  def check_boundary(%ToyRobot{north: 4, dir: "NORTH"} = position) do
+  def check_boundary(%ToyRobot{north: @upper_boundary, dir: "NORTH"} = position) do
     {:error, "Facing boundary, cannot move", position}
   end
 
-  def check_boundary(%ToyRobot{north: 0, dir: "SOUTH"} = position) do
+  def check_boundary(%ToyRobot{north: @lower_boundary, dir: "SOUTH"} = position) do
     {:error, "Facing boundary, cannot move", position}
   end
 
-  def check_boundary(%ToyRobot{east: 4, dir: "EAST"} = position) do
+  def check_boundary(%ToyRobot{east: @upper_boundary, dir: "EAST"} = position) do
     {:error, "Facing boundary, cannot move", position}
   end
 
-  def check_boundary(%ToyRobot{east: 0, dir: "WEST"} = position) do
+  def check_boundary(%ToyRobot{east: @lower_boundary, dir: "WEST"} = position) do
     {:error, "Facing boundary, cannot move", position}
   end
 
@@ -118,8 +122,7 @@ defmodule ToyRobot do
 
   def place(string_command) do
     coord = string_command_to_map(string_command)
-    boundary_range = 0..4
-    if Enum.member?(boundary_range, coord[:east]) && Enum.member?(boundary_range, coord[:north]) do
+    if Enum.member?(@boundary_range, coord[:east]) && Enum.member?(@boundary_range, coord[:north]) do
       %ToyRobot{ north: coord[:north], east: coord[:east], dir: coord[:dir] }
     else
       IO.puts("Invalid PLACE coordinates" )
@@ -133,14 +136,13 @@ defmodule ToyRobot do
   Places the position to a new set of coordinates
   Reverts back to prev. position when given invalid coordinates
   ## Examples
-    iex> ToyRobot.place("PLACE,3,3,NORTH", %ToyRobot{north: 1, east: 1, dir: "EAST"})
+    iex> ToyRobot.place( %ToyRobot{north: 1, east: 1, dir: "EAST"}, "PLACE,3,3,NORTH")
     %ToyRobot{north: 3, east: 3, dir: "NORTH"}
   """
 
-  def place(string_command, %ToyRobot{} = previous_position) do
+  def place(%ToyRobot{} = previous_position, string_command ) do
     coord = string_command_to_map(string_command)
-    boundary_range = 0..4
-    if Enum.member?(boundary_range, coord[:east]) && Enum.member?(boundary_range, coord[:north]) do
+    if Enum.member?(@boundary_range, coord[:east]) && Enum.member?(@boundary_range, coord[:north]) do
       %ToyRobot{ north: coord[:north], east: coord[:east], dir: coord[:dir] }
     else
       IO.puts("Invalid PLACE coordinates" )
