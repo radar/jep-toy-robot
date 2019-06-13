@@ -36,9 +36,9 @@ defmodule ToyRobot.CLI do
     |> ToyRobot.rotate("RIGHT"))
   end
 
-  def run_commands([command_string | commands], position) do
+  def run_commands(["PLACE," <> coords | commands], position) do
     run_commands(commands, position
-    |> ToyRobot.place(command_string))
+    |> ToyRobot.place(coords))
   end
 
   def run_commands([], %{north: north, east: east, dir: dir }) do

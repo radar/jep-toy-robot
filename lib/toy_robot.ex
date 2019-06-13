@@ -113,10 +113,10 @@ defmodule ToyRobot do
   Places the position to a new set of coordinates if within boundaries
   Places position at 0,0,NORTH if given invalid coordinates
   ## Examples
-      iex> ToyRobot.place("PLACE,3,3,NORTH")
+      iex> ToyRobot.place("3,3,NORTH")
       %ToyRobot{north: 3, east: 3, dir: "NORTH"}
 
-      iex> ToyRobot.place("PLACE,3,8,NORTH")
+      iex> ToyRobot.place("3,8,NORTH")
       %ToyRobot{north: 0, east: 0, dir: "NORTH"}
   """
 
@@ -136,7 +136,7 @@ defmodule ToyRobot do
   Places the position to a new set of coordinates
   Reverts back to prev. position when given invalid coordinates
   ## Examples
-    iex> ToyRobot.place( %ToyRobot{north: 1, east: 1, dir: "EAST"}, "PLACE,3,3,NORTH")
+    iex> ToyRobot.place( %ToyRobot{north: 1, east: 1, dir: "EAST"}, "3,3,NORTH")
     %ToyRobot{north: 3, east: 3, dir: "NORTH"}
   """
 
@@ -153,9 +153,9 @@ defmodule ToyRobot do
 
   defp string_command_to_map(string_command) do
     split_string = String.split(string_command, ",")
-    east = Enum.at(split_string, 1) |> String.to_integer
-    north = Enum.at(split_string, 2) |> String.to_integer
-    dir = Enum.at(split_string, 3)
+    east = Enum.at(split_string, 0) |> String.to_integer
+    north = Enum.at(split_string, 1) |> String.to_integer
+    dir = Enum.at(split_string, 2)
     %{east: east, north: north, dir: dir}
   end
 
