@@ -110,29 +110,6 @@ defmodule ToyRobot do
 
 
   @doc """
-  Places the position to a new set of coordinates if within boundaries
-  Places position at 0,0,NORTH if given invalid coordinates
-  ## Examples
-      iex> ToyRobot.place("3,3,NORTH")
-      %ToyRobot{north: 3, east: 3, dir: "NORTH"}
-
-      iex> ToyRobot.place("3,8,NORTH")
-      %ToyRobot{north: 0, east: 0, dir: "NORTH"}
-  """
-
-  def place(string_command) do
-    coord = string_command_to_map(string_command)
-    if Enum.member?(@boundary_range, coord[:east]) && Enum.member?(@boundary_range, coord[:north]) do
-      %ToyRobot{ north: coord[:north], east: coord[:east], dir: coord[:dir] }
-    else
-      IO.puts("Invalid PLACE coordinates" )
-      IO.puts("No previous position to revert to" )
-      IO.puts("Placing robot at 0,0,NORTH")
-      %ToyRobot{north: 0, east: 0, dir: "NORTH"}
-    end
-  end
-
-  @doc """
   Places the position to a new set of coordinates
   Reverts back to prev. position when given invalid coordinates
   ## Examples
@@ -141,22 +118,33 @@ defmodule ToyRobot do
   """
 
   def place(%ToyRobot{} = previous_position, string_command ) do
-    coord = string_command_to_map(string_command)
-    if Enum.member?(@boundary_range, coord[:east]) && Enum.member?(@boundary_range, coord[:north]) do
-      %ToyRobot{ north: coord[:north], east: coord[:east], dir: coord[:dir] }
-    else
-      IO.puts("Invalid PLACE coordinates" )
-      IO.puts("Reverting to previous position" )
-      previous_position
+    string_to_map_result = string_command_to_map(string_command)
+    case string_to_map_result do
+      {:ok, coord} ->
+        if Enum.member?(@boundary_range, coord[:east]) && Enum.member?(@boundary_range, coord[:north]) do
+          %ToyRobot{ north: coord[:north], east: coord[:east], dir: coord[:dir] }
+        else
+          IO.puts("Invalid PLACE coordinates" )
+          IO.puts("Reverting to previous position" )
+          previous_position
+        end
+      {:error, message} ->
+        IO.puts(message)
+        IO.puts("Reverting to previous position" )
+        previous_position
     end
   end
 
   defp string_command_to_map(string_command) do
-    split_string = String.split(string_command, ",")
-    east = Enum.at(split_string, 0) |> String.to_integer
-    north = Enum.at(split_string, 1) |> String.to_integer
-    dir = Enum.at(split_string, 2)
-    %{east: east, north: north, dir: dir}
+    if Regex.match?(~r/\d,\d,(NORTH|SOUTH|EAST|WEST)/, string_command) do
+      split_string = String.split(string_command, ",")
+      east = Enum.at(split_string, 0) |> String.to_integer
+      north = Enum.at(split_string, 1) |> String.to_integer
+      dir = Enum.at(split_string, 2)
+      {:ok, %{east: east, north: north, dir: dir}}
+    else
+      {:error, "Invalid PLACE coordinates"}
+    end
   end
 
 end
