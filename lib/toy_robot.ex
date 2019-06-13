@@ -147,4 +147,15 @@ defmodule ToyRobot do
     end
   end
 
+  @doc """
+  Takes, outputs, and then returns a position
+  #Examples
+  iex> ToyRobot.report(%ToyRobot{north: 1, east: 2, dir: "WEST"})
+  %ToyRobot{north: 1, east: 2, dir: "WEST"}
+  """
+  def report(%ToyRobot{north: north, east: east, dir: dir} = position) do
+    IO.puts "Robot is at position #{east}, #{north}, facing: #{dir}"
+    position
+  end
+
 end

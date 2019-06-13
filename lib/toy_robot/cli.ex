@@ -41,7 +41,12 @@ defmodule ToyRobot.CLI do
     |> ToyRobot.place(coords))
   end
 
-  def run_commands([], %{north: north, east: east, dir: dir }) do
-    IO.puts "Robot is at position #{east}, #{north}, facing: #{dir}"
+  def run_commands(["REPORT" | commands], position) do
+    run_commands(commands, position
+    |> ToyRobot.report)
+  end
+
+  def run_commands([], %ToyRobot{} = position) do
+    ToyRobot.report(position)
   end
 end
