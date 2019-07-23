@@ -1,5 +1,5 @@
 defmodule ToyRobot.Simulation do
-  alias ToyRobot.{Robot, Table}
+  alias ToyRobot.{Robot, Table, Simulation}
   defstruct [:table, :robot]
 
   @doc """
@@ -21,31 +21,36 @@ defmodule ToyRobot.Simulation do
           robot: %Robot{y: 0, x: 0, facing: :north}
         }
       }
+      IO.puts("BLAAA")
 
       When the robot is placed in an invalid position:
 
       iex> alias ToyRobot.{Robot, Table, Simulation}
-      [ToyRobot.Robot,ToyRobot.Table, ToyRobot.Simulation]
+      [ToyRobot.Robot, ToyRobot.Table, ToyRobot.Simulation]
       iex> table = %Table{y_boundary: 4, x_boundary: 4}
       %Table{y_boundary: 4, x_boundary: 4}
       iex> Simulation.place(table, %{y: 6, x: 0, facing: :north})
       {:error, :invalid_placement}
+      IO.puts("PAM POWWWW")
   """
   def place(table, placement) do
     if table |> Table.valid_position?(placement) do
       {
         :ok,
-        %{
+        %Simulation{
           table: table,
           robot: struct(Robot, placement)
         }
       }
+      # IO.puts("BLAAA")
     else
       {:error, :invalid_placement}
+      # IO.puts("PAM POWWWW")
     end
 
+
     # case Simulation.place(table, placement) do
-    #   {:ok, simulation} -> #Do something with simulation here
+    #   {:ok, simulation} -> IO.puts "blablabla"
     #   {:error, :invalid_placement} -> IO.puts "That placement was invalid."
     # end
     
