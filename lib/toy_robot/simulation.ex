@@ -21,7 +21,6 @@ defmodule ToyRobot.Simulation do
           robot: %Robot{y: 0, x: 0, facing: :north}
         }
       }
-      IO.puts("BLAAA")
 
       When the robot is placed in an invalid position:
 
@@ -31,7 +30,6 @@ defmodule ToyRobot.Simulation do
       %Table{y_boundary: 4, x_boundary: 4}
       iex> Simulation.place(table, %{y: 6, x: 0, facing: :north})
       {:error, :invalid_placement}
-      IO.puts("PAM POWWWW")
   """
   def place(table, placement) do
     if table |> Table.valid_position?(placement) do
@@ -42,10 +40,8 @@ defmodule ToyRobot.Simulation do
           robot: struct(Robot, placement)
         }
       }
-      # IO.puts("BLAAA")
     else
       {:error, :invalid_placement}
-      # IO.puts("PAM POWWWW")
     end
 
 
