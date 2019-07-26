@@ -9,17 +9,17 @@ defmodule ToyRobot.RobotTest do
     end
 
     test "it moves one space north", %{robot: robot} do
-      robot = robot |> Robot.move
+      robot = robot |> Robot.move()
       assert robot.y == 1
     end
 
     test "turns left to face west", %{robot: robot} do
-      robot = robot |> Robot.turn_left
+      robot = robot |> Robot.turn_left()
       assert robot.facing == :west
     end
 
     test "turns right to face east", %{robot: robot} do
-      robot = robot |> Robot.turn_right
+      robot = robot |> Robot.turn_right()
       assert robot.facing == :east
     end
   end
@@ -27,16 +27,16 @@ defmodule ToyRobot.RobotTest do
   describe "when the robot is facing north, and it has moved forward a space" do
     setup do
       {:ok, %{robot: %Robot{y: 1, facing: :north}}}
-    end  
+    end
 
     test "turns right to face east", %{robot: robot} do
-      robot = robot |> Robot.turn_right
+      robot = robot |> Robot.turn_right()
       assert robot.facing == :east
       assert robot.y == 1
     end
 
     test "turns left to face west", %{robot: robot} do
-      robot = robot |> Robot.turn_left
+      robot = robot |> Robot.turn_left()
       assert robot.facing == :west
       assert robot.y == 1
     end
@@ -48,7 +48,7 @@ defmodule ToyRobot.RobotTest do
     end
 
     test "moves north one space", %{robot: robot} do
-      robot = robot |> Robot.move
+      robot = robot |> Robot.move()
       assert robot.y == 1
       assert robot.x == 1
       assert robot.facing == :north
@@ -61,17 +61,17 @@ defmodule ToyRobot.RobotTest do
     end
 
     test "it moves one space east", %{robot: robot} do
-      robot = robot |> Robot.move
+      robot = robot |> Robot.move()
       assert robot.x == 1
     end
 
     test "turns left to face north", %{robot: robot} do
-      robot = robot |> Robot.turn_left
+      robot = robot |> Robot.turn_left()
       assert robot.facing == :north
     end
 
     test "turns right to face south", %{robot: robot} do
-      robot = robot |> Robot.turn_right
+      robot = robot |> Robot.turn_right()
       assert robot.facing == :south
     end
   end
@@ -82,7 +82,7 @@ defmodule ToyRobot.RobotTest do
     end
 
     test "moves east one space", %{robot: robot} do
-      robot = robot |> Robot.move
+      robot = robot |> Robot.move()
       assert robot.y == 1
       assert robot.x == 1
       assert robot.facing == :east
@@ -95,17 +95,17 @@ defmodule ToyRobot.RobotTest do
     end
 
     test "it moves one space south", %{robot: robot} do
-      robot = robot |> Robot.move
+      robot = robot |> Robot.move()
       assert robot.y == -1
     end
 
     test "turns left to face east", %{robot: robot} do
-      robot = robot |> Robot.turn_left
+      robot = robot |> Robot.turn_left()
       assert robot.facing == :east
     end
 
     test "turns right to face west", %{robot: robot} do
-      robot = robot |> Robot.turn_right
+      robot = robot |> Robot.turn_right()
       assert robot.facing == :west
     end
   end
@@ -116,7 +116,7 @@ defmodule ToyRobot.RobotTest do
     end
 
     test "moves south one space", %{robot: robot} do
-      robot = robot |> Robot.move
+      robot = robot |> Robot.move()
       assert robot.y == -1
       assert robot.x == 1
       assert robot.facing == :south
@@ -129,17 +129,17 @@ defmodule ToyRobot.RobotTest do
     end
 
     test "it moves one space west", %{robot: robot} do
-      robot = robot |> Robot.move
+      robot = robot |> Robot.move()
       assert robot.x == -1
     end
 
     test "turns left to face south", %{robot: robot} do
-      robot = robot |> Robot.turn_left
+      robot = robot |> Robot.turn_left()
       assert robot.facing == :south
     end
 
     test "turns right to face north", %{robot: robot} do
-      robot = robot |> Robot.turn_right
+      robot = robot |> Robot.turn_right()
       assert robot.facing == :north
     end
   end
@@ -150,11 +150,10 @@ defmodule ToyRobot.RobotTest do
     end
 
     test "moves west one space", %{robot: robot} do
-      robot = robot |> Robot.move
+      robot = robot |> Robot.move()
       assert robot.y == 1
       assert robot.x == -1
       assert robot.facing == :west
     end
   end
-
 end

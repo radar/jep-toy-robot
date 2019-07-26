@@ -21,10 +21,9 @@ defmodule ToyRobot.Table do
       false
   """
   def valid_position?(
-      %Table{y_boundary: y_boundary, x_boundary: x_boundary}, 
-      %{y: y, x: x}
-    ) do
-      y >= 0 && y <= y_boundary &&
-      x >= 0 && x <= x_boundary
+        %Table{y_boundary: y_boundary, x_boundary: x_boundary},
+        %{y: y, x: x}
+      ) do
+    y >= 0 && y <= y_boundary && x >= 0 && x <= x_boundary
   end
 end
