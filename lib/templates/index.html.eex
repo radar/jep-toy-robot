@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <title>Toy Robot Interface</title>
+  <head>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.0.0/fetch.js"></script> -->
+    <script type="text/javascript">
+      document.onkeydown = function(event) {
+        switch (event.keyCode) {
+          case 37:
+            fetch("http://localhost:8080/turn_left");
+            console.log('LEFT')
+            break;
+          case 38:
+            fetch("http://localhost:8080/move");
+            console.log('MOVE')
+            break;
+          case 39:
+            fetch("http://localhost:8080/turn_right");
+            console.log('RIGHT')
+            break;
+          case 40:
+            fetch("http://localhost:8080/report");
+            console.log('REPORT')
+            break;
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <p>Use the arrow keys!</p>
+  </body>
+</html>
